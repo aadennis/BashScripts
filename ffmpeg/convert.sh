@@ -15,10 +15,13 @@ fi
 opening_title="$3"
 duration_per_image="$4"
 
+opening_credit="RSPB Bowling Green Marsh
+3 December 2023"
+
 
 # Generate opening credits video with the provided title
 credits_outfile='test_artifacts/opening_credits.mp4'
-ffmpeg -f lavfi -i color=size=3456x2304:duration=3:rate=25:color=blue -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=100:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text=$opening_title" $credits_outfile
+ffmpeg -f lavfi -i color=size=3456x2304:duration=3:rate=25:color=blue -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=100:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text=$opening_credit" $credits_outfile
 
 # Create a video from images
 images_outfile='test_artifacts/images.mp4'
@@ -29,4 +32,4 @@ ffmpeg -f concat -i filelist.txt -c copy $combined_outfile
 
 
 # Clean up temporary files
-rm $credits_outfile $images_outfile
+#rm $credits_outfile $images_outfile
