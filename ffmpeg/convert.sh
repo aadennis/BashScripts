@@ -18,7 +18,7 @@ output_duration="$4"
 
 # Generate opening credits video with the provided title
 #ffmpeg -f lavfi -t "$output_duration" -i anullsrc=channel_layout=stereo:sample_rate=44100 -vf "drawtext=text='${opening_title}':fontcolor=white:fontsize=40:x=(w-text_w)/2:y=(h-text_h)/2" -c:v libx264 -r 30 -pix_fmt yuv420p -c:a null -an opening_credits.mp4
-ffmpeg -f lavfi -i color=size=3456x2304:duration=10:rate=25:color=blue -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=30:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='Bowling Green'" 'test_artifacts/opening_credits.mp4'
+ffmpeg -f lavfi -i color=size=3456x2304:duration=10:rate=25:color=blue -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=300:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='Bowling Green'" 'test_artifacts/opening_credits.mp4'
 
 # Create a video from images
 ffmpeg -framerate 1/3 -pattern_type glob -i "$1" -c:v libx264 -r 30 -pix_fmt yuv420p 'test_artifacts/images.mp4'
