@@ -2,8 +2,7 @@
 # Given an input wildcard, being the set of image files to be converted
 # to a video, save that video in the location "output_wildcard"
 # Example call
-# ./convert.sh 'test_artifacts/*.JPG' 'test_artifacts/output3.mp4' 'I like black swans'
-# ./convert.sh 'test_artifacts/*.JPG' 'test_artifacts/output.mp4' "A nice day on the Solent" 3
+# ./convert.sh 'test_artifacts/*.JPG' 'test_artifacts/output.mp4' 'Bowling Green' 3
 
 #!/bin/bash
 
@@ -14,11 +13,12 @@ if [ "$#" -ne 4 ]; then
 fi
 
 opening_title="$3"
-output_duration="$4"
+duration_per_image="$4"
+
 
 # Generate opening credits video with the provided title
 credits_outfile='test_artifacts/opening_credits.mp4'
-ffmpeg -f lavfi -i color=size=3456x2304:duration=3:rate=25:color=blue -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=300:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text='Bowling Green'" $credits_outfile
+ffmpeg -f lavfi -i color=size=3456x2304:duration=3:rate=25:color=blue -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=100:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2:text=$opening_title" $credits_outfile
 
 # Create a video from images
 images_outfile='test_artifacts/images.mp4'
@@ -29,4 +29,4 @@ ffmpeg -f concat -i filelist.txt -c copy $combined_outfile
 
 
 # Clean up temporary files
-#rm opening_credits.mp4 images.mp4
+rm $credits_outfile $images_outfile
