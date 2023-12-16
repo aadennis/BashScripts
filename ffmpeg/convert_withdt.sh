@@ -8,12 +8,15 @@
 # oldfile.jpg -> oldfile_with_datetime.jpg
 # Example call:
 # ./convert_withdt.sh path_to_image.jpg
+# Dependencies: 
+# brew install libheif
 
 
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <absolute_path_to_image_file>"
     exit 1
 fi
+
 image_file="$1"
 
 if [ ! -f "$image_file" ]; then
@@ -23,7 +26,12 @@ fi
 
 output_folder="test_output"
 datetime=$(exiftool -s3 -d "%Y%m%d_%H%M%S" -DateTimeOriginal "$image_file")
-rootname=$(basename "$image_file" | tr '[:upper:]' '[:lower:]' | sed 's/\.jpg$//')
+rootname=$(basename "$image_file" | tr '[:upper:]' '[:lower:]' | sed 's/\.[^.]*$//')
 new_filename="test_output/${rootname}_with_datetime.jpg"
+
+# Convert HEIC to JPEG using libheif tools
+heif-convert "$image_file" "$new_filename"
+
+# Add the text overlay using ffmpeg
 drawtext_action="drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='$datetime'"
-ffmpeg -i "$image_file" -vf $drawtext_action "$new_filename"
+ffmpeg -i "$new_filename" -vf "$drawtext_action" -y "$new_filename"

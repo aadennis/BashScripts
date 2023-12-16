@@ -20,7 +20,7 @@ if [ ! -d "$image_folder" ]; then
 fi
 
 pwd
-content=($(find $image_folder -iname "*.JPG"))
+content=($(find $image_folder -iname "*.HEIC"))
 
 echo $content
 for image in "${content[@]}"; do
