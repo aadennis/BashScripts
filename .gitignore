@@ -2,3 +2,4 @@ ffmpeg/test_artifacts/*.mp4
 ffmpeg/*.mp4
 ffmpeg/test_artifacts/temp_assets/*.*
 .DS_Store
+ffmpeg/test_output/*.*
