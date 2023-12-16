@@ -1,43 +1,23 @@
 #!/bin/zsh
+# Given an image file, extract its exif datetime info.
+# Display that info on a copy of the input file, and
+# save to a new file.
 
-clear
+# Check if an argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <absolute_path_to_image_file>"
+    exit 1
+fi
+image_file="$1"
 
-
-image_folder="test_artifacts"
-cd test_artifacts  # Change directory to where the images are located
-pwd
-
-
-# Find all JPG files in the specified folder
-# find_result=find "$image_folder" -iname '*.jpg'
-image_list=$(find "." -iname '*1.jpg')
-# echo $image_list
-echo "point 1"
-read x
-
-# in the next, xxxx only prints out on the first iteration?!
-for image_file in $image_list; do
-    x=$(echo "point 1:" $image_file)
-    echo "$x"
-done
+if [ ! -f "$image_file" ]; then
+    echo "Error: Image file '$image_file' not found."
+    exit 1
+fi
 
 
-ls -l
-read dd
-
-# Loop through each image file
-for image_file in $image_list; do
-   
-    echo "point 2a"
-    # Extract the creation date and time using exiftool
-    # fp="/Users/den/git/BashScripts/ffmpeg/test_artifacts/IMG_0001.JPG"
-    datetime=$(exiftool -s3 -d "%Y%m%d_%H%M%S" -DateTimeOriginal "$image_file")
-    echo "point 2b"
-    read line
-    # Generate the new filename with datetime suffix
-    new_filename="../test_output/${image_file%.*}_with_datetime.jpg"
-    echo "about to create new file"
-    # Use ffmpeg to copy the image and add a timestamp
-    drawtext_action="drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='$datetime'"
-    ffmpeg -i "$image_file" -vf $drawtext_action "$new_filename"
-done
+# Assign the argument to a variable
+datetime=$(exiftool -s3 -d "%Y%m%d_%H%M%S" -DateTimeOriginal "$image_file")
+new_filename="../test_output/${image_file}_with_datetime.jpg"
+drawtext_action="drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='$datetime'"
+ffmpeg -i "$image_file" -vf $drawtext_action "$new_filename"
