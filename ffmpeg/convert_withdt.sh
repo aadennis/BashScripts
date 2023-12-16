@@ -38,5 +38,6 @@ for image_file in $image_list; do
     new_filename="../test_output/${image_file%.*}_with_datetime.jpg"
     echo "about to create new file"
     # Use ffmpeg to copy the image and add a timestamp
-    ffmpeg -i "$image_file" -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='$datetime'" "$new_filename"
+    drawtext_action="drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='$datetime'"
+    ffmpeg -i "$image_file" -vf $drawtext_action "$new_filename"
 done
