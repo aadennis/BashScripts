@@ -5,7 +5,6 @@
 # This script must be executed in the folder ffmpeg, as
 # it assumes a location for the output folder
 
-# Check if an argument is provided
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <absolute_path_to_image_file>"
     exit 1
