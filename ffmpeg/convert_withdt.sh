@@ -6,6 +6,8 @@
 # it assumes a location for the output folder.
 # An example of the pattern of the new file name is
 # oldfile.jpg -> oldfile_with_datetime.jpg
+# Example call:
+# ./convert_withdt.sh path_to_image.jpg
 
 
 if [ $# -eq 0 ]; then
