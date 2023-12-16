@@ -2,6 +2,8 @@
 # Given an image file, extract its exif datetime info.
 # Display that info on a copy of the input file, and
 # save to a new file.
+# This script must be executed in the folder ffmpeg, as
+# it assumes a location for the output folder
 
 # Check if an argument is provided
 if [ $# -eq 0 ]; then
@@ -15,9 +17,9 @@ if [ ! -f "$image_file" ]; then
     exit 1
 fi
 
-
-# Assign the argument to a variable
+output_folder="test_output"
 datetime=$(exiftool -s3 -d "%Y%m%d_%H%M%S" -DateTimeOriginal "$image_file")
-new_filename="../test_output/${image_file}_with_datetime.jpg"
+rootname=$(basename "$image_file" | tr '[:upper:]' '[:lower:]' | sed 's/\.jpg$//')
+new_filename="test_output/${rootname}_with_datetime.jpg"
 drawtext_action="drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='$datetime'"
 ffmpeg -i "$image_file" -vf $drawtext_action "$new_filename"
