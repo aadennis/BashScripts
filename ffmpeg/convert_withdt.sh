@@ -3,7 +3,10 @@
 # Display that info on a copy of the input file, and
 # save to a new file.
 # This script must be executed in the folder ffmpeg, as
-# it assumes a location for the output folder
+# it assumes a location for the output folder.
+# An example of the pattern of the new file name is
+# oldfile.jpg -> oldfile_with_datetime.jpg
+
 
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <absolute_path_to_image_file>"

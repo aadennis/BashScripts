@@ -4,6 +4,9 @@
 # Al the detail happens in the called script.
 # This script must be executed in the folder ffmpeg, as
 # it assumes a location for the output folder
+# Example call:
+# ./bulk_convert_withdt.sh test_artifacts
+# where test_artifacts is the folder containing the original images
 
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <absolute_path_to_image_folder>"
