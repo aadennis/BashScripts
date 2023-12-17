@@ -3,7 +3,9 @@
 
 workdir="/Users/den/git/BashScripts/ffmpeg/openai"
 
-for i in 1 2 3 4; do
+# next is same as 
+# for i in 1 2 3 4; do
+for i in {1..4}; do
     echo "file$i content" > $workdir/file$i.txt
 done
 
