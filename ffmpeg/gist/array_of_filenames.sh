@@ -1,21 +1,21 @@
 #!/bin/zsh
-# How to iterate through an array of filenames
+# Iterate through an array of filenames
 
-workdir="/Users/den/git/BashScripts/ffmpeg/openai"
+workdir="/Users/den/git/BashScripts/ffmpeg/dump"
 
-# next is same as 
-# for i in 1 2 3 4; do
+# arrange
 for i in {1..4}; do
     echo "file$i content" > $workdir/file$i.txt
 done
 
+# act
 file_list=($(find $workdir -iname "*.txt" | sort))
-echo "${file_list[@]}"
-for i in "${file_list[@]}"; do
-    if [ -f "$i" ]; then
-        cat "$i"
+#echo "${file_list[@]}"
+for file in "${file_list[@]}"; do
+    if [ -f "$file" ]; then
+        cat "$file"
     else
-        echo "File not found: $i"
+        echo "File not found: $file"
     fi
 done
 
