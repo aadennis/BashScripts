@@ -1,11 +1,5 @@
 #!/bin/bash
-# Given an input wildcard, being the set of image files to be converted
-# to a video, save that video in the location "output_wildcard"
-# Example call
-# ./convert.sh 'test_artifacts/*.JPG' 'test_artifacts/output.mp4' 'Bowling Green' 3
-
-#!/bin/bash
-
+# Create a video file consisting of a set of image files
 
 if [ "$#" -ne 4 ]; then
     echo "Usage: $0 <input_wildcard> <output_location> <opening_title> <output_duration>"
@@ -24,12 +18,22 @@ ffmpeg -f lavfi -i color=size=3456x2304:duration=3:rate=25:color=blue -vf "drawt
 
 # Create a video from images with timestamp
 images_outfile='test_artifacts/images.mp4'
-ffmpeg -framerate 1/3 -pattern_type glob -i "$1" -vf "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='%{pts\:gmtime\:0\:%H\\\\\\:%M\\\\\\:%S}':rate=30" -c:v libx264 -r 30 -pix_fmt yuv420p $images_outfile
 
+# Create a temporary file to store the list of images with timestamps
+temp_file=$(mktemp)
+for file in $1; do
+    timestamp=$(mediainfo --Inform="Image;%File_Modified%" "$file" | cut -d' ' -f2)
+    echo "file '$file'" >> "$temp_file"
+    echo "file '$file'" >> "$temp_file"
+    echo "duration $duration_per_image" >> "$temp_file"
+    echo "drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:fontsize=24:fontcolor=white:x=10:y=h-text_h-10:text='$timestamp':rate=30" >> "$temp_file"
+done
+
+# Use ffmpeg to concatenate images and add timestamp
+ffmpeg -f concat -i "$temp_file" -c:v libx264 -r 30 -pix_fmt yuv420p "$images_outfile"
+
+# Clean up temporary file
+rm "$temp_file"
 
 combined_outfile='test_artifacts/outty.mp4'
-ffmpeg -f concat -i filelist.txt -c copy $combined_outfile
-
-
-# Clean up temporary files
-#rm $credits_outfile $images_outfile
+ffmpeg -f concat -i filelist.txt -c copy "$combined_outfile"
