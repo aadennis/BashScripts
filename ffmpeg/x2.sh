@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define input files
-input_files="IMG_0001.mp4 IMG_0002.mp4 IMG_0003.mp4 IMG_0004.mp4"
+input_files="IMG_0001.mp4 IMG_0002.mp4 IMG_0003.mp4 IMG_0004.mp4 IMG_3093.mp4"
 
 # Output file
 output_file="output.mp4"
