@@ -27,7 +27,7 @@ read -p "Enter the folder containing the JPG files (press Enter for default '$de
 # test for default
 folder="${folder:-$default_folder}"
 
-read -p "Enter the duration in seconds for each image (press Enter for default of 3 seconds): " duration
+read -p "Enter the duration in seconds for each image (press Enter for default of $default_duration seconds): " duration
 # test for default
 duration="${duration:-$default_duration}"
 
