@@ -34,7 +34,7 @@ duration="${duration:-$default_duration}"
 > "$output_file"
 
 # Loop through each JPG file in the folder, writing filename and duration
-find "$folder" -maxdepth 1 -iname '*.jpg' -print0 | while IFS= read -r -d '' file; do
+find "$folder" -maxdepth 1 \( -iname '*.jpg' -o -iname '*.png' \) -print0 | while IFS= read -r -d '' file; do
     echo "file '$file'" >> "$output_file"
     echo "duration $duration" >> "$output_file"
 done
