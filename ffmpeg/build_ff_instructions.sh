@@ -21,7 +21,7 @@
 
 default_folder="test_artifacts"
 default_duration=3
-output_file="./instructions.txt"
+instructions_file="./instructions.txt"
 
 read -p "Enter the folder containing the JPG files (press Enter for default '$default_folder'): " folder
 # test for default
@@ -31,14 +31,30 @@ read -p "Enter the duration in seconds for each image (press Enter for default o
 # test for default
 duration="${duration:-$default_duration}"
 
+# Enable case-insensitive globbing
+shopt -s nocaseglob
 # Create or clear the output file
-> "$output_file"
+> "$instructions_file"
 
 # Loop through each JPG file in the folder, writing filename and duration
 find "$folder" -maxdepth 1 \( -iname '*.jpg' -o -iname '*.png' \) -print0 | while IFS= read -r -d '' file; do
-    echo "file '$file'" >> "$output_file"
-    echo "duration $duration" >> "$output_file"
+    lowercase_file=$(basename "$file" | tr '[:upper:]' '[:lower:]')
+    # Determine the format based on the file extension
+    if [[ "$lowercase_file" == *.jpg ]]; then
+        format="jpg"
+    elif [[ "$lowercase_file" == *.png ]]; then
+        format="png"
+    else
+        # Handle unsupported formats or other cases
+        format="unknown"
+    fi
+    echo "file '$file'" >> "$instructions_file"
+    #echo "format $format" >> "$instructions_file"
+    echo "duration $duration" >> "$instructions_file"
 done
 
-cat $output_file
+cat $instructions_file
+
+probe_size=50000000
+ffmpeg -f concat -safe 0 -i "$instructions_file" -vf "fps=1/3,scale=1920:-2" ./output.mp4
 
