@@ -1,11 +1,24 @@
 #!/bin/bash
-
+# Build an "instruction" file for use by ffmpeg, when making a video consisting
+# of a bunch of image files, with a user-specified duration, or default of 3
+# seconds.
+# The command line is [./build_instructions.sh], followed by the script
+# prompting the user for the image folder and duration.
+# ----------------------------------------------
+# Example of the output file instructions.txt (which is written to the 
+# current folder)
+# file 'test_artifacts/IMG_0001.JPG'
+# duration 3
+# file 'test_artifacts/IMG_0002.JPG'
+# duration 3
+# file 'test_artifacts/IMG_0003.JPG'
+# duration 3
+# (etc)
+# --------------------------------------
 ## USER INPUT PROMPTING
 
-# Default folder containing the JPG files
 default_folder="test_artifacts"
 default_duration=3
-# Output file
 output_file="./instructions.txt"
 
 read -p "Enter the folder containing the JPG files (press Enter for default '$default_folder'): " folder
@@ -16,18 +29,12 @@ read -p "Enter the duration in seconds for each image (press Enter for default o
 # test for default
 duration="${duration:-$default_duration}"
 
-# Clear the output file if it exists
+# Create or clear the output file
 > "$output_file"
 
-# Loop through each JPG file in the folder
-for file in "$folder"/*.jpg; do
-    # Convert filename to lowercase for case-insensitive comparison
-    lowercase_file=$(basename "$file" | tr '[:upper:]' '[:lower:]')
-    
-    # Write file line to instructions.txt
+# Loop through each JPG file in the folder, writing filename and duration
+find "$folder" -maxdepth 1 -iname '*.jpg' -print0 | while IFS= read -r -d '' file; do
     echo "file '$file'" >> "$output_file"
-    
-    # Write duration line to instructions.txt
     echo "duration $duration" >> "$output_file"
 done
 
