@@ -2,8 +2,9 @@
 # Build an "instruction" file for use by ffmpeg, when making a video consisting
 # of a bunch of image files, with a user-specified duration, or default of 3
 # seconds. The image file folder also supports a default.
-# The command line is [./build_instructions.sh], followed by the script
-# prompting the user for the image folder and duration.
+# Usage: 
+# ./build_instructions.sh
+# , then the script prompts the user for the image folder and duration.
 # To emphasise: this just builds the instruction file used downstream by ffmpeg
 # ----------------------------------------------
 # Example of the output file instructions.txt (which is written to the 
