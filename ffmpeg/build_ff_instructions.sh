@@ -12,7 +12,7 @@
 # duration 3
 # file 'test_artifacts/IMG_0002.JPG'
 # duration 3
-# file 'test_artifacts/IMG_0003.JPG'
+# file 'test_artifacts/my_image.pnG'
 # duration 3
 # (etc)
 # --------------------------------------
