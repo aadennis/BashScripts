@@ -1,14 +1,13 @@
 # Concat a set of existing mp4s to a single mp4.
 # -safe 0 : allow relative paths
 # -f concat : action to take
-# -r 8 seems to mean fit it all into no. of vids / 8
-# that is 4/8 = 0.5 seconds for each video
-# and -r .5 says no. of vids / .5 = 4/.5 = 8 seconds per video
-required_duration_per_video=2
+# -r : what rate do you want the video played at?
+# So if you have 5 videos, each of 10 seconds, total of 50 seconds.
+# Say you use -r 0.5 (see rate below), then the single video would play for 50 * 0.5
+# seconds = 25 seconds.
+# Therefore the issue needs fixing upstream, so that the individual
+# videos only play for say 1 second. After all, they are just an image.
 no_of_videos=$(wc -l < ./inst_vid.txt)
-r_arg=$((no_of_videos / required_duration_per_video))
 echo "no_of_videos: $no_of_videos"
-echo "required_duration_per_video: $required_duration_per_video"
-echo "r_arg = no_of_videos / required_duration_per_video = $r_arg"
-
-ffmpeg -safe 0 -f concat -r $r_arg -i ./inst_vid.txt outputy.mp4
+rate=0.5
+ffmpeg -safe 0 -f concat -r "$rate" -i ./inst_vid.txt outputy.mp4
