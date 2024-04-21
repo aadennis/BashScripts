@@ -13,7 +13,11 @@
 # file 'test_artifacts/srcmp4/IMG_0003.mp4'
 # file 'test_artifacts/srcmp4/IMG_0004.mp4'
 filelist="./inst_vid.txt"
-no_of_videos=$(cat $filelist | grep . | wc -l)
-echo "no_of_videos: $no_of_videos"
+no_of_videos=$(grep -cxv '^\s$' $filelist)
 rate=0.5
-ffmpeg -safe 0 -f concat -r "$rate" -i ./inst_vid.txt outputy.mp4
+
+echo "[$filelist] has [$no_of_videos] files"
+echo "[rate] is [$rate]"
+read -p "Press any key..."
+
+ffmpeg -safe 0 -f concat -r "$rate" -i $filelist outputy.mp4
