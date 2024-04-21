@@ -7,7 +7,13 @@
 # seconds = 25 seconds.
 # Therefore the issue needs fixing upstream, so that the individual
 # videos only play for say 1 second. After all, they are just an image.
-no_of_videos=$(wc -l < ./inst_vid.txt)
+# file 'test_artifacts/srcmp4/IMG_3093.mp4'
+# file 'test_artifacts/srcmp4/IMG_0001.mp4'
+# file 'test_artifacts/srcmp4/IMG_0002.mp4'
+# file 'test_artifacts/srcmp4/IMG_0003.mp4'
+# file 'test_artifacts/srcmp4/IMG_0004.mp4'
+filelist="./inst_vid.txt"
+no_of_videos=$(cat $filelist | grep . | wc -l)
 echo "no_of_videos: $no_of_videos"
 rate=0.5
 ffmpeg -safe 0 -f concat -r "$rate" -i ./inst_vid.txt outputy.mp4
