@@ -15,10 +15,16 @@ for image in "$input_folder"/*.JPG; do
     filename=$(basename -- "$image")
     # (for no extension use...)
     # filename_no_ext="${filename%.*}"
+    creation_date=$(stat -c %y "$image" | cut -d' ' -f1)
+    echo "filename: $filename"
+    echo "creation_date: $creation_date"
 
     # Overlay image with filename
-    ffmpeg -i "$image" -vf "drawtext=text='$filename':x=100:y=100:fontsize=50:fontcolor=black" "$output_folder/$filename"
+    overlay_text="$creation_date $filename${newline}Created:"
+    echo -e "this now $overlay_text !!!!!!!!!!!"
 
+    ffmpeg -i "$image" -vf "drawtext=text='$creation_date $filename':x=100:y=100:fontsize=50:fontcolor=black" "$output_folder/$filename"
+    
     echo "Overlay added to $filename"
 done
 
