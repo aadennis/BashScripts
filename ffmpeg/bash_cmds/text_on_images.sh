@@ -1,13 +1,17 @@
 #!/bin/bash
+# Image files as input. Add metadata to viewer, and
+# compile all into a single video.
 # Given a folder containing a set of image files,
 # create a copy of those files (same name but different
-# folder), only adding the filename of each file as an
-# overlay on the images
+# folder), adding the filename and creation_date of each 
+# file as an overlay on that new set of images.
+# Finally write all the component images and text to a 
+# single video file in mp4 format.
 
 input_folder="test_artifacts"
 
-# Output folder - this is no created at 
-# runtime, so it must exist
+# Output folder - this is not created at 
+# runtime, so it must pre-exist the run
 output_folder="test_output" 
 
 for image in "$input_folder"/*.JPG; do
@@ -20,11 +24,20 @@ for image in "$input_folder"/*.JPG; do
     echo "creation_date: $creation_date"
 
     # Overlay image with filename
-    overlay_text="$creation_date $filename${newline}Created:"
+    overlay_text="$filename / $creation_date"
     echo -e "this now $overlay_text !!!!!!!!!!!"
 
-    ffmpeg -i "$image" -vf "drawtext=text='$creation_date $filename':x=100:y=100:fontsize=50:fontcolor=black" "$output_folder/$filename"
+    ffmpeg -i "$image" -vf "drawtext=text='$overlay_text':x=50:y=50:fontsize=30:fontcolor=black" "$output_folder/$filename"
     
     echo "Overlay added to $filename"
 done
+
+read -p "\nout of there now"
+
+mp4_out_file="woutfile.mp4" # 5.02mb for 1fps, 3.78mb for 30fps sic
+
+# input is now those jpg etc files with text, output is a single mp4 file
+ffmpeg -framerate 1/3 -pattern_type glob -i "$output_folder/*.JPG" -c:v libx264 -r 30 -pix_fmt yuv420p $mp4_out_file
+
+read -p "\nSlideshow video is: [$mp4_out_file]\n"
 
