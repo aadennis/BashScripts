@@ -8,6 +8,10 @@
 # Finally write all the component images and text to a 
 # single video file in mp4 format.
 
+duration_per_image=3 # seconds
+# NO EDITING BELOW HERE
+frame_rate=1/$duration_per_image
+
 input_folder="test_artifacts"
 
 # Output folder - this is not created at 
@@ -37,7 +41,7 @@ read -p "\nout of there now"
 mp4_out_file="woutfile.mp4" # 5.02mb for 1fps, 3.78mb for 30fps sic
 
 # input is now those jpg etc files with text, output is a single mp4 file
-ffmpeg -framerate 1/3 -pattern_type glob -i "$output_folder/*.JPG" -c:v libx264 -r 30 -pix_fmt yuv420p $mp4_out_file
+ffmpeg -framerate $frame_rate -pattern_type glob -i "$output_folder/*.JPG" -c:v libx264 -r 30 -pix_fmt yuv420p $mp4_out_file
 
 read -p "\nSlideshow video is: [$mp4_out_file]\n"
 
