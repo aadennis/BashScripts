@@ -4,13 +4,10 @@ This is a Block comment
 # This is an inline comment
 
 set targetSD to "MARKTEST"
-set targetPhotos to "DennisPhotos"
-
-# no edits below here
-log targetSD + " " + targetPhotos
+set targetPhotos to "DennisPhotos4"
 
 tell application "Finder"
 	activate
-	set targetDisk to disk targetSD
-	make new folder at disk targetDisk with properties {name:targetPhotos}
+	make new folder at disk targetSD with properties {name:targetPhotos}
 end tell
+
