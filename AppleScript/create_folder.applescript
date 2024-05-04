@@ -1,7 +1,9 @@
 # Create a set of folders in targetPhotos, on the volume targetSD
+# To execute from an iTerm2 window, go to the scripts folder, and run...
+# osascript .create_folder.scpt
 
 set targetSD to "MARKTEST"
-set targetPhotos to "DennisPhotosx"
+set targetPhotos to "DennisPhotosx2"
 set startYear to 2010
 set endYear to 2026
 
@@ -23,6 +25,8 @@ repeat with currentYear from startYear to endYear
 			set monthFolder to (yearFolder & "/" & monthFolderName)
 			try
 				do shell script "mkdir -p '" & monthFolder & "'"
+				display dialog "Created folder: " & monthFolder
+				delay 0.05
 			end try
 		end repeat
 	end try
