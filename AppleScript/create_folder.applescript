@@ -1,7 +1,7 @@
 # Create a set of folders in targetPhotos, on the volume targetSD
 
 set targetSD to "MARKTEST"
-set targetPhotos to "DennisPhotos"
+set targetPhotos to "DennisPhotosx"
 set startYear to 2010
 set endYear to 2026
 
@@ -18,6 +18,13 @@ repeat with currentYear from startYear to endYear
 	# display dialog yearFolder
 	try
 		do shell script "mkdir -p '" & yearFolder & "'"
+		repeat with currentMonth from 1 to 12
+			set monthFolderName to currentYear & "-" & text -2 thru -1 of ("0" & currentMonth)
+			set monthFolder to (yearFolder & "/" & monthFolderName)
+			try
+				do shell script "mkdir -p '" & monthFolder & "'"
+			end try
+		end repeat
 	end try
 end repeat
 
