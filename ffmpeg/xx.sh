@@ -33,14 +33,15 @@ duration="${duration:-3}"
 # Loop through each image file in the folder
 for file in "$folder"/*.JPG; do
     filename=$(basename "$file")
-    ffmpeg -loop 1 -i "$file" -vf "drawtext=text='$filename':x=(w-text_w)/2:y=(h-text_h)/2:fontsize=24:fontcolor=white" -t "$duration" -c:v libx264 -pix_fmt yuv420p -shortest -y "${filename%.*}.mp4"
+    ffmpeg -loop 1 -i "$file" -r 1 -vf "drawtext=text='$filename':x=(w-text_w)/2:y=(h-text_h)/2:fontsize=24:fontcolor=white" -t "$duration" -c:v libx264 -pix_fmt yuv420p -shortest -y "${filename%.*}.mp4"
 done
 
 echo $folder
+
 read -p "above is what I have"
 
 # Concatenate the resulting videos
-ffmpeg -f concat -safe 0 -i <(for file in "$folder"/*.mp4; do echo "file '$file'"; done) -c copy "$output_file"
+ffmpeg -v debug -f concat -safe 0 -i <(for file in "$folder"/../*.mp4; do echo "file '$file'"; done) -c copy "/mnt/d/temp/$output_file"
 
 # Clean up temporary video files
 #rm "$folder"/*.mp4
