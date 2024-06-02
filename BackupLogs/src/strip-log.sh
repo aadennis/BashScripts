@@ -1,10 +1,19 @@
 #!/bin/bash
-#!/bin/bash
+# Given a log file, copy it to an output file, first stripping
+# out any lines where field 1 (1 based, and leading space-stripped) contains 
+# the % symbol.
+# The context for this is a Robocopy log file, where information about the 
+# % processed of a given file can double the number of lines to read. I don't
+# need that progress statement.
+# The output file name is based on the name of the input file. For example, if the 
+# input file is tiny.log.txt, the output filename will be generated as 
+# tiny.log.stripped.txt
+
 
 # Check if a filename has been passed
 if [ -z "$1" ]; then
     echo "Error: No filename provided."
-    echo "Usage: ./scriptname.sh filename"
+    echo "Usage: bash ./scriptname.sh input-filename"
     exit 1
 fi
 
@@ -20,5 +29,5 @@ fi
 # Generate output file name
 output_file="${input_file%.txt}.stripped.txt"
 
-# Use awk to remove lines starting with a percentage
-awk '!($1 ~ /^ {0,2}[0-9]+(\.[0-9])?%$/)' "$input_file" > "$output_file"
+# Only print the current line if the first field does NOT contain the % symbol
+awk '!( $1 ~ /%/) {print}' "$input_file" > "$output_file"

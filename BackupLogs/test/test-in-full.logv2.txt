@@ -1,0 +1,77 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : 17 March 1924 16:57:59
+   Source : D:\FrackMoon\
+     Dest : E:\FrackMoonBuDw\DWHotmail\fullbackuptaken.1923.12.31\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                  81	D:\FrackMoon\
+	    New File  		      63	.849C9593-D756-4E56-8D6E-42412F2A707B
+1924/03/17 16:57:59 ERROR 2 (0x00000002) Changing File Attributes D:\FrackMoon\.849C9593-D756-4E56-8D6E-42412F2A707B
+The system cannot find the file specified.
+
+
+	    New File  		  436090	IMG_2918.JPG
+ 30%  
+ 60%  
+ 90%  
+100%  
+	    New File  		  463228	IMG_2919.JPG
+ 28%  
+ 56%  
+ 84%  
+100%  
+	    New File  		  318956	IMG_2921.JPG
+ 41%  
+ 82%  
+100%  
+	    New File  		  349222	IMG_2925.JPG
+ 37%  
+ 75%  
+100%  
+	    New File  		  225095	IMG_2926 1.JPG
+ 58%  
+100%  
+	    New File  		  468895	IMG_2926.JPG
+ 27%  
+ 55%  
+ 83%  
+100%  
+	    New File  		  244186	IMG_2927.JPG
+ 53%  
+100%  
+	    New File  		  405529	IMG_2928.JPG
+ 32%  
+ 64%  
+ 96%  
+100%  
+	    New File  		  461954	IMG_2929.JPG
+ 28%  
+ 56%  
+ 85%  
+100%  
+
+234%  
+  7.9%
+ 15.8%
+ 23.7%
+ 31.7%
+ 39.6%
+ 47.5%
+ 55.5%
+ 63.4%
+ 71.3%
+ 79.3%
+ 87.2%
+ 95.1%
+100%  
+	    New File  		  763486	IMG_3868.jpg
+ 34%  
