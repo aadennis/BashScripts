@@ -1,6 +1,6 @@
 #!/bin/bash
 # Extract frames from a provided video file.
-# Save those frames as individual jpg files
+# Save those frames as individual jpg files.
 # A single frame is extracted every $interval seconds from the input video.
 
 interval=1 # gap between grabbing frames
@@ -24,6 +24,7 @@ duration=${duration%.*}
 
 # Loop over the video at the specified interval
 for (( i=0; i<duration; i+=interval )); do
-  # Use ffmpeg to extract a single frame at the current timestamp and save it as a jpg file
-  ffmpeg -ss $i -i "$input_video_path" -vframes 1 "$input_dir/frame$i.jpg"
+    frame_number=$(printf "%03d" $i)
+    # Use ffmpeg to extract a single frame at the current timestamp and save it as a jpg file
+    ffmpeg -ss $i -i "$input_video_path" -vframes 1 "$input_dir/frame_$frame_number.jpg"
 done
