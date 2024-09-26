@@ -1,25 +1,25 @@
 #!/bin/bash
 
-# Path to the config file
 config_file="backup_config.cfg"
 
-# Check if the config file exists
 if [ ! -f "$config_file" ]; then
     echo "Config file not found!"
     exit 1
 fi
 
-# Prompt the user to choose between "onedrive" or "outlook"
 echo "Please choose an option:"
 echo "a) onedrive"
 echo "b) outlook"
 read -p "Enter your choice (a/b): " choice
 
-# Function to read values from the config file
-function get_config_value {
+# Function to read values from the config file using awk (debug messages separate)
+get_config_value() {
     local section=$1
     local key=$2
-    grep -A1 "^\[$section\]" "$config_file" | grep "^$key=" | cut -d'=' -f2
+    awk -F '=' -v section="[$section]" -v key="$key" '
+    $0 == section { found_section=1; next }
+    found_section && $1 == key { print $2; exit }
+    ' "$config_file"
 }
 
 # Set src and dest based on the user's choice
@@ -33,6 +33,10 @@ else
     echo "Invalid choice. Exiting."
     exit 1
 fi
+
+# DEBUGGING: Output the values of src and dest for verification
+echo "DEBUG: Source directory (src) = '$src'"
+echo "DEBUG: Destination directory (dest) = '$dest'"
 
 # Verify that src and dest are not empty
 if [[ -z "$src" || -z "$dest" ]]; then
