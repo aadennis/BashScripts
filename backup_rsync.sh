@@ -1,11 +1,26 @@
 #!/bin/bash
+# requires sudo apt install jq
 
 config_file="backup_config.cfg"
+json_file="backup_config.json"
 
 if [ ! -f "$config_file" ]; then
     echo "Config file not found!"
     exit 1
 fi
+
+# Function to extract value using jq
+extract_value() {
+  local json="$1"
+  cat "$json" | jq -r '.onedrive.src'
+}
+
+# Call the function and capture the output
+value=$(extract_value "$json_file")
+
+# Print the extracted value
+echo "The value of foo.bar.baz is: $value"
+exit 1
 
 echo "Please choose an option:"
 echo "a) onedrive"
@@ -20,6 +35,10 @@ get_config_value() {
     $0 == section { found_section=1; next }
     found_section && $1 == key { print $2; exit }
     ' "$config_file"
+}
+
+get_config_value_2() {
+
 }
 
 # Set src and dest based on the user's choice
