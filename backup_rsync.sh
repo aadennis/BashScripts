@@ -43,6 +43,8 @@ if [[ -z "$src" || -z "$dest" ]]; then
     exit 1
 fi
 
+read -p "starting the dry run"
+
 # Dry run to check what will be transferred or deleted
 echo "Starting dry-run..."
 rsync -avhziv --delete --dry-run "$src" "$dest" | more
