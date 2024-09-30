@@ -4,4 +4,3 @@ ffmpeg/test_artifacts/temp_assets/*.*
 .DS_Store
 ffmpeg/test_output/*.*
 backup_config.json
-backup_config.json
