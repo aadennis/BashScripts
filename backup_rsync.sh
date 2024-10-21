@@ -47,10 +47,11 @@ read -p "starting the dry run"
 
 # Dry run to check what will be transferred or deleted
 echo "Starting dry-run..."
+logfile="./logfile_dryrun_$(date +%Y%m%d_%H%M).log"
 #rsync -avhziv --delete --dry-run "$src" "$dest" # | more
 #rsync -ahziP --delete --dry-run --info=name "$src" "$dest"
-rsync -ahziP --delete --dry-run --info=name --exclude=".*" "$src" "$dest" 2>&1 | tee /mnt/c/temp/logfile02.log
-#rsync -ahziP --delete --dry-run --exclude=".*" "$src" "$dest" 2>&1 | tee /mnt/c/temp/logfile02.log
+#rsync -ahziP --delete --dry-run --info=name --exclude=".*" "$src" "$dest" 2>&1 | tee /mnt/c/temp/logfile02.log
+rsync -ahziP --delete --dry-run --info=name "$src" "$dest" 2>&1 | tee $logfile
 
 
 # Ask the user to confirm if they want to proceed with the actual backup
@@ -59,8 +60,9 @@ read -p "Do you want to proceed with the actual backup? (y/n): " confirm
 if [[ $confirm == "y" || $confirm == "Y" ]]; then
     # Actual rsync command without the --dry-run
     echo "Starting the actual backup..."
+    logfile="./logfile_realrun_$(date +%Y%m%d_%H%M).log"
     #rsync -avhziv --delete "$src" "$dest"
-    rsync -ahziP --delete --info=name "$src" "$dest"
+    rsync -ahziP --delete --info=name "$src" "$dest" 2>&1 | tee $logfile
     echo "Backup completed."
 else
     echo "Backup aborted."
