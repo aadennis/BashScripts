@@ -1,0 +1,10 @@
+{
+    "onedrive": {
+        "src": "/mnt/d/a1",
+        "dest": "/mnt/e/b1"
+    },
+    "outlook": {
+        "src": "/mnt/d/a2",
+        "dest": "/mnt/e/b2"
+    }
+}
