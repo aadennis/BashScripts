@@ -2,6 +2,8 @@
 # Given an input file path to a file of mp4 type,
 # creates an output with the same base name, 
 # but with the extension of .mp3.
+# requirements:
+# ffmpeg is installed.
 # usage:
 # chmod +x convert_mp4_to_mp3.sh
 # ./convert_mp4_to_mp3.sh yourfile.mp4
