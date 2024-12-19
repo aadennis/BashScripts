@@ -20,7 +20,7 @@
 ## USER INPUT PROMPTING
 
 default_folder="test_artifacts"
-default_duration=3
+default_duration=1
 output_file="./instructions.txt"
 
 read -p "Enter the folder containing the JPG files (press Enter for default '$default_folder'): " folder
@@ -35,12 +35,23 @@ duration="${duration:-$default_duration}"
 > "$output_file"
 
 # Loop through each JPG file in the folder, writing filename and duration
-find "$folder" -maxdepth 1 \( -iname '*.jpg' \) -print0 | while IFS= read -r -d '' file; do
-    echo "file '$file'" >> "$output_file"
-    echo "duration $duration" >> "$output_file"
-done
+# find "$folder" -maxdepth 1 \( -iname '*.jpg' \) -print0 | while IFS= read -r -d '' file; do
+#     echo "file '$file'" >> "$output_file"
+#     echo "duration $duration" >> "$output_file"
+#     echo "metadata title='$file'" >> "$output_file"
+# done
+
+find "$folder" -maxdepth 1 \( -iname '*.jpg' \) -printf "file '%p'\nduration $duration\n" > instructions.txt
+
 
 cat $output_file
 
-ffmpeg -f concat -safe 0 -i "$output_file" -vf "fps=1/3" ./output.mp4
+#ffmpeg -f concat -safe 0 -i "$output_file" -vf "fps=1/3,drawtext=text='%{filename}':x=(w-text_w)/2:y=(h-text_h)/2:fontsize=24:fontcolor=white" -pix_fmt yuv420p ./output.mp4
+
+#ffmpeg -f concat -safe 0 -i "./instructions.txt" -vf "fps=1/3,drawtext=text='%{filename}':x=(w-text_w)/2:y=(h-text_h)/2" output.mp4
+#ffmpeg -f concat -safe 0 -i "./instructions.txt" -vf "fps=1/3,drawtext=text='%{filename}':x=(w-text_w)/2:y=(h-text_h)/2:fontsize=24:fontcolor=white" output.mp4
+#ffmpeg -f concat -safe 0 -i "$output_file" -vf "fps=1/$duration,drawtext=text='%{metadata:title}':x=(w-text_w)/2:y=(h-text_h)/2:fontsize=24:fontcolor=white" output.mp4
+
+ffmpeg -f concat -safe 0 -i instructions.txt -vf "fps=1/$duration,drawtext=text='%{filename}':x=(w-text_w)/2:y=(h-text_h)/2:fontsize=24:fontcolor=white" output.mp4
+
 
