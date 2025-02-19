@@ -1,6 +1,8 @@
 #!/bin/bash
 # Split a sound file of a given type, into n parts of the same type 
 # For example, m4a, mp3, etc.
+# Right now, the output extension is always m4a, regardless of what you specify as 
+# file_type.
 # Example usage (bash)
 # ./split_m4a.sh /mnt/c/temp/Lesson_6/Lesson_6.m4a .m4a 4
 
