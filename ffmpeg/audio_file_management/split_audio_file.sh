@@ -1,5 +1,10 @@
 #!/bin/bash
-# Split a video file into equal parts using ffmpeg
+# Split an audio file into equal parts using ffmpeg
+# usage:
+# ./split_audio_file.sh ../test_artifacts/pitch01.mp3
+# mymp3='/mnt/c/temp/fresco/Lesson of 2025-05-07.mp3' 
+
+
 
 # Check for input
 if [ $# -lt 1 ]; then
