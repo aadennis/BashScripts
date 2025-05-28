@@ -1,3 +1,4 @@
+# DISCARD - TOO HARD TO GET AUTHENTICATION WORKING
 #!/bin/bash
 # Given a sample URL from Google Takeout, this script generates all URLs
 # for the export files by incrementing the index `i` from 0 to 227.
@@ -8,7 +9,7 @@
 
 
 sample='https://takeout.google.com/download/export?format=zip&i=154&user=ABCDEF123456789'
-sample='https://takeout.google.com/takeout/download?j=a39af998-e2f5-4f8c-9408-a009f8e95a09&i=1&user=101930758947397193019&rapt=AEjHL4N9xepmDMvXABbe3SzWvnLxgAykYvoOFO9AbJ-jCPhuHMMMGgaVUED4KVFBVj5mNIeRc56-bWzZFAyb-ZhLMyXqV-Xh3GejuR2T-ffAhEGjShsbgM0'
+sample='https://takeout.google.com/takeout/download?j=a39af998-WvnLxgAykYvoOFO9AbJ-jCPhuHMMMGgaVUED4KVFBVh3GejuR2T-ffAhEGjShsbgM0'
 
 # Parse the sample URL
 prefix="${sample%%i=*}i="
