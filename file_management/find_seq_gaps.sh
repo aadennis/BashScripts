@@ -2,7 +2,7 @@
 
 # This script checks for missing sequence numbers in filenames of the format takeout-###.zip
 # Usage: Place this script in the directory containing the takeout-###.zip files and run it.
-# 1 228 is the range of sequence numbers to check - todo, should no
+# 1 228 is the range of sequence numbers to check - todo, should be parameterized
 
 cd /path/to/your/folder || { echo "Error: Folder not found. Exiting."; exit 1; }
 
