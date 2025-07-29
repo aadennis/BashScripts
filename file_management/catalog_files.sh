@@ -17,7 +17,7 @@ echo -n "{}" > "$index_file"
 echo -n "[]" > "$output_file"
 
 # Process mp3 files
-find /mnt/c -type f -name "*.mp3" ! -name "\$*" 2>/dev/null | while read -r file; do
+find /mnt/d -type f -name "*.mp3" ! -name "\$*" 2>/dev/null | while read -r file; do
     folder_path=$(dirname "$file")
     file_name=$(basename "$file")
 
@@ -33,4 +33,8 @@ find /mnt/c -type f -name "*.mp3" ! -name "\$*" 2>/dev/null | while read -r file
 
     # Append to output JSON
     jq --arg key "$key" --arg file "$file_name" '. + [{"key": $key, "file": $file}]' "$output_file" > tmp.json && mv tmp.json "$output_file"
+<<<<<<< HEAD
 done
+=======
+done
+>>>>>>> b4816a7e1070c328364c7368c2fbb45c559d29e3

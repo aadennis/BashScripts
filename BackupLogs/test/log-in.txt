@@ -1,0 +1,58 @@
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : 17 March 2024 16:57:59
+   Source : D:\onedrive\
+     Dest : E:\OneDriveBuDw\DWHotmail\fullbackuptaken.2023.12.31\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                  81	D:\onedrive\
+	    New File  		      63	.849C9593-D756-4E56-8D6E-42412F2A707B
+2024/03/17 16:57:59 ERROR 2 (0x00000002) Changing File Attributes D:\onedrive\.849C9593-D756-4E56-8D6E-42412F2A707B
+The system cannot find the file specified.
+
+
+	    New File  		  436090	IMG_2918.JPG
+ 30%  
+ 60%  
+ 90%  
+100%  
+	    New File  		  463228	IMG_2919.JPG
+ 28%  
+ 56%  
+ 84%  
+100%  
+	    New File  		  318956	IMG_2921.JPG
+ 41%  
+ 82%  
+100%  
+	    New File  		  349222	IMG_2925.JPG
+ 37%  
+ 75%  
+100%  
+	    New File  		  225095	IMG_2926 1.JPG
+ 58%  
+100%  
+100%  
+	    New File  		  10.8 m	IMG_4491.MOV
+  9.2%
+ 18.4%
+ 27.6%
+ 36.8%
+ 46.0%
+ 55.3%
+ 64.5%
+ 73.7%
+ 82.9%
+ 92.1%
+100%  
+	    New File  		  582495	IMG_4530.jpg
+ 45%  
+ 90%  
+ End of file

@@ -1,4 +1,6 @@
 #!/bin/bash
+# DEPRECATED - SEE convert_heic_to_jpg.sh
+# -- archive:
 # Batch convert heic files to png
 # ------------
 # cd /mnt/d/...../BashScripts/photo_management

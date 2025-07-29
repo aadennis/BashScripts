@@ -1,0 +1,10 @@
+file 'test_artifacts/IMG_0001.JPG'
+duration 1
+file 'test_artifacts/IMG_0002.JPG'
+duration 1
+file 'test_artifacts/IMG_0003.JPG'
+duration 1
+file 'test_artifacts/IMG_0004.JPG'
+duration 1
+file 'test_artifacts/IMG_3093.JPG'
+duration 1
