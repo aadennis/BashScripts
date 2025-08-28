@@ -1,3 +1,11 @@
+# Git Utilities
+
+## Stuff for making GitLife easier
+
+### Get Git activity
+
+#### `get_git_activity.sh`
+
 Running this script:
 
 ```
