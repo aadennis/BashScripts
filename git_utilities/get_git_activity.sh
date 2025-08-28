@@ -1,15 +1,20 @@
 #!/bin/bash
 
-# chmod +x ./get_git_activity.sh
-# Usage 1:
-# ./get_git_activity.sh
-# This will return summary git activity across all my repos for the last [3] months
-# 
-# Usage 2:
-# ./get_git_activity.sh 5
-# This sets the number of months to return to [5]
+# Script: get_git_activity.sh
+# Description:
+# This script summarizes Git activity across all repositories in the parent directory.
+# It lists the commits made within a specified number of months, grouped by repository.
 #
-# Example output (ignore leading '#')
+# Usage:
+# 1. Default behavior (last 3 months):
+#    ./get_git_activity.sh
+#
+# 2. Specify the number of months:
+#    ./get_git_activity.sh <months>
+#    Example: ./get_git_activity.sh 5
+#    This will return Git activity for the last 5 months.
+#
+# Example Output:
 # == VbaSandbox ==
 # == PythonSandboxAA ==
 # 2025-08-27 PythonSandboxAA MockPlay
@@ -17,7 +22,12 @@
 # 2025-08-25 VbaSandbox PowerPointVba
 # 2025-08-25 PythonSandboxAA MusicHandling
 # (end of example output)
-# ---------------
+#
+# Notes:
+# - The script assumes repositories are located two levels up from the current directory.
+# - The default number of months is set to 3 if no argument is provided.
+# - Ensure the script has executable permissions using `chmod +x ./get_git_activity.sh`.
+
 # Default value for months
 months=${1:-3}
 
