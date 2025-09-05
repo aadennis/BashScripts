@@ -7,6 +7,7 @@
 SOURCE_FOLDER="$1"
 SOURCE_FILE="$2"
 NTH_FRAME="${3:-60}"  # Default to 60 if not provided
+FRAME_DURATION="${4:-2}"  # Default to 2 seconds
 
 # --- Path setup ---
 BASENAME="${SOURCE_FILE%.*}"
@@ -30,8 +31,9 @@ ffmpeg -i "${SOURCE_FOLDER}/${SOURCE_FILE}" \
   -vsync vfr \
   "${TEMP_DIR}/frame_%04d.png"
 
-# --- Step 2: Rebuild video from frames ---
-ffmpeg -framerate 25 \
+# --- Step 2: Rebuild video from frames - each output frame to last 
+# --- for  FRAME_DURATION seconds
+ffmpeg -framerate 1/"${FRAME_DURATION}" \
   -i "${TEMP_DIR}/frame_%04d.png" \
   -c:v libx264 \
   -r 25 \
