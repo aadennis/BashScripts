@@ -17,9 +17,16 @@ TEMP_DIR="${SOURCE_FOLDER}/frames_${RAND_INT}"
 
 mkdir -p "$TEMP_DIR"
 
+# --- Detect FPS from source file ---
+FPS=$(ffprobe -v error -select_streams v:0 \
+  -show_entries stream=avg_frame_rate \
+  -of default=noprint_wrappers=1:nokey=1 "${SOURCE_FOLDER}/${SOURCE_FILE}")
+FPS_INT=$(echo "scale=0; $FPS" | bc)
+
 # --- Step 1: Extract every nth frame ---
+# This selects every NTH_FRAME-th frame and resets timestamps for clean rebuild
 ffmpeg -i "${SOURCE_FOLDER}/${SOURCE_FILE}" \
-  -vf "select='not(mod(n\,${NTH_FRAME}))'" \
+  -vf "select='not(mod(n\,${NTH_FRAME}))',setpts=N/(${FPS})/TB" \
   -vsync vfr \
   "${TEMP_DIR}/frame_%04d.png"
 
