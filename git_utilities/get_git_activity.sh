@@ -6,6 +6,7 @@
 # It lists the commits made within a specified number of months, grouped by repository.
 #
 # Usage:
+# - Ensure the script has executable permissions: chmod +x ./get_git_activity.sh
 # 1. Default behavior (last 3 months):
 #    ./get_git_activity.sh
 #
@@ -14,6 +15,9 @@
 #    Example: ./get_git_activity.sh 5
 #    This will return Git activity for the last 5 months.
 #
+# Output:
+# - The output is a sorted list of unique file modifications, showing the date, repository name, and file path.
+# - The list is sorted in reverse chronological order.
 # Example Output:
 # == VbaSandbox ==
 # == PythonSandboxAA ==
@@ -31,14 +35,19 @@
 # Default value for months
 months=${1:-3}
 
+# Loop through all sibling directories containing a .git folder
 for d in ../../*/.git; do
+    # Extract the repository name from the directory path
     repo=$(basename "$(dirname "$d")")
     echo "== $repo =="
-    git -C "$(dirname "$d")" log --since="$months months ago" --date=short \
+
+    # Retrieve the Git log for the last 7 months, showing the date and modified files
+    git -C "$(dirname "$d")" log --since="7 months ago" --date=short \
         --pretty="%ad" --name-only \
     | awk -v r="$repo" -F/ '
+        # If the line starts with a date, store it in the "day" variable
         /^[0-9]/ {day=$1; next}
+        # If the line contains a file path, print the date, repository name, and file path
         NF>1 {print day, r, $1}
     '
-done | sort -u | sort -r
-
+done | sort -u | sort -r  # Remove duplicates and sort the output in reverse order
