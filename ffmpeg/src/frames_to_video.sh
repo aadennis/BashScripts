@@ -42,6 +42,6 @@ done
 # Repeat the last image line so the final frame duration is respected.
 printf "file '%s'\n" "${images[-1]}" >> "$list_file"
 
-ffmpeg -f concat -safe 0 -i "$list_file" -vsync vfr -pix_fmt yuv420p -c:v libx264 "$output_video"
+ffmpeg -f concat -safe 0 -i "$list_file" -vsync vfr -pix_fmt yuv420p -c:v libx264 -crf 18 -preset slow "$output_video"
 
 echo "Created video: $output_video"
