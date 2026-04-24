@@ -12,7 +12,10 @@ input_video="$1"
 output_folder="./output"
 output_pattern="frame_%04d.jpg"
 
-# Use ffmpeg to extract frames at 10 fps (every 0.1 seconds)
-ffmpeg -i "$input_video" -vf fps=10 "$output_folder/$output_pattern"
+mkdir -p "$output_folder"
 
-echo "Frames extracted to frame_0001.jpg, frame_0002.jpg, etc."
+# Use ffmpeg to extract frames at 10 fps (every 0.1 seconds)
+# -q:v 2 requests high JPEG quality (lower value = better quality)
+ffmpeg -i "$input_video" -vf fps=10 -q:v 2 "$output_folder/$output_pattern"
+
+echo "High-quality frames extracted to $output_folder/frame_0001.jpg, frame_0002.jpg, etc."
